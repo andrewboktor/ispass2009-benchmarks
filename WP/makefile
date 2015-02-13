@@ -72,7 +72,7 @@ DEBUGOUTPUT = -DDEBUG_I=$(DEBUG_I) -DDEBUG_J=$(DEBUG_J) -DDEBUG_K=$(DEBUG_K) $(F
 NVCC    = $(CUDA_INSTALL_PATH)/bin/nvcc -DCUDA #--ptxas-options=-v
 PHASE   = -cuda --compiler-options -fno-strict-aliasing  
 NVOPT   = $(DEVICEEMU_NVCC) $(PROMOTE) $(DEBUGDEBUG) $(DEBUGOUTPUT) \
-          -DXXX=$(XXX) -DYYY=$(YYY) -DMKX=$(MKX) --host-compilation 'C++' --use_fast_math
+          -DXXX=$(XXX) -DYYY=$(YYY) -DMKX=$(MKX) --use_fast_math
 ifeq ($(noinline),1)
    NVOPT   += -Xopencc -noinline
    # Compiler-specific flags, when using noinline, we don't build for SM1x
@@ -108,7 +108,7 @@ wsm5.f.cu : wsm5.cu
 
 wsm5.cu.o : wsm5.f.cu
 	$(NVCC) $(PHASE) $(NVOPT) wsm5.f.cu
-	$(CC) $(CFLAGS) -o wsm5.cu.o -c wsm5.f.cu.cpp
+	$(CC) $(CFLAGS) -o wsm5.cu.o -c wsm5.f.cu.cpp.ii
 
 
 wsm5_gpu.f.cu : wsm5_gpu.cu spt.h
@@ -116,7 +116,7 @@ wsm5_gpu.f.cu : wsm5_gpu.cu spt.h
 
 wsm5_gpu.cu.o : wsm5_gpu.f.cu
 	$(NVCC) $(PHASE) $(NVOPT) wsm5_gpu.f.cu
-	$(CC) $(CFLAGS) -o wsm5_gpu.cu.o -c wsm5_gpu.f.cu.cpp
+	$(CC) $(CFLAGS) -o wsm5_gpu.cu.o -c wsm5_gpu.f.cu.cpp.ii
 
 
 libmassv.o : libmassv.F
